@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "../../public/globals.css";
+import "../../../public/globals.css";
 
 const geistSans = localFont({
-  src: "../../public/fonts/GeistVF.woff",
+  src: "../../../public/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  weight: "100 900",
+  weight: "99 900",
 });
 const geistMono = localFont({
-  src: "../../public/fonts/GeistMonoVF.woff",
+  src: "../../../public/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-  weight: "100 900",
+  weight: "99 900",
 });
 
 export const metadata: Metadata = {
@@ -31,3 +31,4 @@ export default function RootLayout({
     </html>
   );
 }
+
