@@ -1,7 +1,7 @@
+import { Header } from '@/widgets/header/ui/Header'
 import {
-  AppBar,
   Box,
-  Button,
+  Container,
   CssBaseline,
   Divider,
   Drawer,
@@ -14,60 +14,38 @@ import {
 } from '@mui/material'
 
 export const ListLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  console.log(children)
-
-  const drawerWidth = 200
+  const drawerWidth = '20%'
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <>
       <CssBaseline />
-      <AppBar
-        position='fixed'
-        sx={{
-          width: `calc(100% - ${drawerWidth}px)`,
-          ml: `${drawerWidth}px`,
-          background: 'lightgray',
-        }}
-      >
-        <Toolbar
+      <Header />
+      <Container sx={{ display: 'flex' }}>
+        <Drawer
+          variant='permanent'
           sx={{
-            justifyContent: 'end',
+            width: drawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
           }}
         >
-          <Button sx={{ bgcolor: 'yellow' }}></Button>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant='permanent'
-        anchor='left'
-      >
-        <Box sx={{ p: 8, paddingTop: 10 }}>
-          <Skeleton variant='circular' width={84} height={84} />
-          nickname
+          <Toolbar />
+          <Box sx={{ overflow: 'auto', paddingTop: 6 }}>
+            <List>
+              {['В процессе', 'Созданные мной', 'Сохраненные'].map((text) => (
+                <ListItem key={text}>
+                  <ListItemButton>
+                    <ListItemText> {text} </ListItemText>
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
+        <Box component='main' sx={{ flexGrow: 1, bgcolor: 'white', p: 3, pr: 25 }}>
+          {children}
         </Box>
-        <Divider />
-        <List disablePadding>
-          {[1, 2, 3, 4].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component='main' sx={{ flexGrow: 1, bgcolor: 'white', p: 3 }}>
-        <Toolbar />
-        {children}
-      </Box>
-    </Box>
+      </Container>
+    </>
   )
 }
