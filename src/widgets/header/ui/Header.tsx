@@ -1,13 +1,4 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  IconButton,
-  Skeleton,
-  Toolbar,
-  Typography,
-} from '@mui/material'
+import { AppBar, Avatar, Box, IconButton, Toolbar, Typography } from '@mui/material'
 
 export const Header = () => {
   const name = 'Иванов Иван'
@@ -17,13 +8,11 @@ export const Header = () => {
     <AppBar
       position='sticky'
       sx={{
-        width: `100%`,
-        background: '#C3C3C3',
+        background: 'primary.main',
         zIndex: 1201, //(theme) => theme.zIndex.drawer + 1,
-        px: 25,
       }}
     >
-      <Toolbar>
+      <Toolbar sx={{ maxWidth: 1200, width: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
         <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
           Logo
         </IconButton>
