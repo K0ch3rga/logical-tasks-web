@@ -9,10 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.13.5",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@jaredreisinger/react-crossword": "^5.2.0",
+    "@mui/base": "^5.0.0-beta.61",
+    "@mui/icons-material": "^6.1.9",
+    "@mui/material": "^6.1.9",
+    "@mui/material-nextjs": "^6.1.9",
     "logical-tasks-web": "file:",
-    "next": "14.2.15",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "^15.1.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
