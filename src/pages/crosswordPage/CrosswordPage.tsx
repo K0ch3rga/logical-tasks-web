@@ -1,5 +1,5 @@
 import Crossword from '@jaredreisinger/react-crossword'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { ClientCrossword } from './ClientCrossword'
 
 export const CrosswordPage = () => {
@@ -23,8 +23,17 @@ export const CrosswordPage = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <ClientCrossword data={data} />
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex' }}>
+        <ClientCrossword data={data} />
+      </Box>
+      <Button
+        variant='contained'
+        color='secondary'
+        sx={{ width: 300, color: 'white', alignSelf: 'end' }}
+      >
+        Проверить
+      </Button>
     </Box>
   )
 }
