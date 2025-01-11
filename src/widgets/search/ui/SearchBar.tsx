@@ -28,7 +28,6 @@ export const SearchBar = () => {
         sx={{
           width: 240,
           borderWidth: '1px',
-
           '& .MuiInput-root': { height: 32 },
           '& .MuiInputBase-root': { backgroundColor: 'white', color: 'black' },
         }}

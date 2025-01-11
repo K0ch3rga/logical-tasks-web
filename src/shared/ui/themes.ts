@@ -17,7 +17,8 @@ export const baseTheme = createTheme({
       secondary: '#0A1047',
     },
     grey: {
-      '50': '#00000040',
+      '50': '#C3C3C3B2',
+      '100': '#00000040',
     },
     success: {
       main: '#27FD18',
