@@ -23,7 +23,7 @@ export const CrosswordPage = () => {
   }
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex' }}>
       <ClientCrossword data={data} />
     </Box>
   )

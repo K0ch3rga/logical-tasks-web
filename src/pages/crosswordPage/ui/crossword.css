@@ -1,0 +1,12 @@
+.crossword.grid {
+  padding: 20px;
+  background-color: transparent;
+}
+
+.crossword.grid .clue-cell {
+  border-radius: 8px;
+}
+
+.clues {
+  color: #0a1047;
+}
