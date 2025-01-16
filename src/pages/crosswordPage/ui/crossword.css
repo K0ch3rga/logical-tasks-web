@@ -1,5 +1,7 @@
 .crossword.grid {
   padding: 20px;
+  border-radius: 8px;
+  border: 1px #0a1047 solid;
   background-color: transparent;
 }
 
