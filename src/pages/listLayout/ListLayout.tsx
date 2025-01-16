@@ -11,7 +11,7 @@ import {
 
 export const ListLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const drawerWidth = 243
-  const pages = ['В процессе', 'Созданные мной', 'Сохраненные']
+  const pages = ['Созданные мной', 'Сохраненные']
 
   return (
     <>
