@@ -1,17 +1,9 @@
 import { Header } from '@/widgets/header/ui/Header'
-import {
-  Box,
-  CssBaseline,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material'
+import { Box, CssBaseline } from '@mui/material'
+import { SideBar } from './SideBar'
 
 export const ListLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const drawerWidth = 243
-  const pages = ['Созданные мной', 'Сохраненные']
 
   return (
     <>
@@ -28,39 +20,7 @@ export const ListLayout = ({ children }: Readonly<{ children: React.ReactNode }>
           backgroundColor: 'primary.light',
         }}
       >
-        <Drawer
-          variant='permanent'
-          sx={{
-            backgroundColor: 'primary.light',
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-              position: 'static',
-              backgroundColor: 'primary.light',
-            },
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-              maxWidth: drawerWidth,
-              overflow: 'auto',
-              pt: 6,
-            }}
-          >
-            <List sx={{ bg: '#C3C3C366' }}>
-              {pages.map((text) => (
-                <ListItem key={text}>
-                  <ListItemButton>
-                    <ListItemText> {text} </ListItemText>
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
+        <SideBar drawerWidth={drawerWidth} />
         <Box component='main' sx={{ flexGrow: 1, bgcolor: 'white', px: 3, py: 2 }}>
           {children}
         </Box>
