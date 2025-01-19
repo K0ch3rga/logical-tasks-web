@@ -1,4 +1,3 @@
-'use client';
 import React from "react";
 import {
     AppBar,
@@ -7,17 +6,12 @@ import {
     Container,
     Toolbar,
     Typography,
-    useMediaQuery,
-    useTheme,
 } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 import {sharedStyles} from "@/styles/sharedStyles";
 
 const Home: React.FC = () => {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
     return (
         <Box
             sx={{
@@ -50,7 +44,7 @@ const Home: React.FC = () => {
                         mb: '126px',
                         backgroundColor: "transparent",
                         boxShadow: "none",
-                        padding: isSmallScreen ? "0 16px" : "0 40px",
+                        padding: "0 40px",
                     }}
                 >
                     <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
@@ -106,7 +100,7 @@ const Home: React.FC = () => {
                             fontFamily: "Roboto",
                             fontStyle: "normal",
                             fontWeight: 700,
-                            fontSize: isSmallScreen ? "28px" : "56px",
+                            fontSize: "56px",
                             lineHeight: "56px",
                             color: "#0A1047",
                             marginBottom: 2,
