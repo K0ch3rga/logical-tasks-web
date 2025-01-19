@@ -6,9 +6,10 @@ export const sharedStyles = {
         fontSize: '14px',
         lineHeight: '22px',
         color: '#303880',
+        borderRadius: 0,
         background: 'rgba(199, 199, 197, 0.25)',
-        padding: '9px 8px',
-        height: '40px',
+        // padding: '9px 8px',
+        // height: '40px',
         width: '563px',
     },
     label: {
@@ -27,7 +28,7 @@ export const sharedStyles = {
         lineHeight: '22px',
         color: '#FD7118',
         background: 'transparent',
-        border: 'none',
+        border: '1px solid #FD7118'
     },
     buttonSave: {
         fontFamily: 'Roboto',
@@ -39,8 +40,6 @@ export const sharedStyles = {
         background: '#FD7118',
         boxShadow: '2px 1px 2px rgba(0, 0, 0, 0.25)',
         borderRadius: '8px',
-        width: '160px',
-        height: '40px',
     },
     title: {
         fontFamily: 'Roboto',
