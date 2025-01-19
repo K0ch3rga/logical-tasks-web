@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Box, IconButton, SvgIcon, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, Box, Toolbar, Typography } from '@mui/material'
 import logo from '@public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,7 +6,6 @@ import Link from 'next/link'
 export const Header = () => {
   const name = 'Иванов Иван'
   const image = undefined
-  console.log(logo)
 
   return (
     <AppBar
