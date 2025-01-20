@@ -1,10 +1,19 @@
 'use client';
 
-import {Box, TextField, Button, Typography, Container, IconButton, InputAdornment} from '@mui/material';
-import React, {useState} from "react";
+import React, {useState} from 'react';
+import {
+    Box,
+    TextField,
+    Button,
+    Typography,
+    IconButton,
+    InputAdornment,
+    Snackbar,
+    Alert,
+} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {sharedStyles} from "@/styles/sharedStyles";
+import {sharedStyles} from '@/styles/sharedStyles';
 
 interface ProfilePageProps {
     initialData: {
@@ -13,7 +22,7 @@ interface ProfilePageProps {
     };
 }
 
-export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePageProps) => {
+export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}) => {
     const [formData, setFormData] = useState({
         fullName: initialData.fullName || '',
         email: initialData.email || '',
@@ -21,7 +30,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
         confirmPassword: '',
     });
 
-    const [showPassword, setShowPassword] = useState({newPassword: false, confirmPassword: false});
+    const [showPassword, setShowPassword] = useState({
+        newPassword: false,
+        confirmPassword: false,
+    });
+
     const [errors, setErrors] = useState({
         fullName: '',
         email: '',
@@ -29,11 +42,22 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
         confirmPassword: '',
     });
 
-    const handleChange = (field) => (event) => {
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        message: string;
+        severity: 'success' | 'error';
+    }>({
+        open: false,
+        message: '',
+        severity: 'success',
+    });
+
+    const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
             ...formData,
             [field]: event.target.value,
         });
+        setErrors({...errors, [field]: ''});
     };
 
     const validateForm = () => {
@@ -87,22 +111,41 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
 
         try {
             console.log('Saving data:', formData);
-            alert('Профиль успешно сохранён');
+            setSnackbar({
+                open: true,
+                message: 'Профиль успешно сохранён',
+                severity: 'success',
+            });
         } catch (error) {
             console.error('Error saving profile:', error);
-            alert('Ошибка при сохранении профиля');
+            setSnackbar({
+                open: true,
+                message: 'Ошибка при сохранении профиля',
+                severity: 'error',
+            });
         }
     };
 
+    const handleCloseSnackbar = () => {
+        setSnackbar({...snackbar, open: false});
+    };
+
     return (
-        <Container maxWidth="md">
-            <Typography variant="h5" sx={sharedStyles.title}>
+        <Box
+        >
+            <Typography
+                sx={{
+                    ...sharedStyles.title,
+                    mb: 3,
+                    fontWeight: 700,
+                }}
+            >
                 Редактирование личного кабинета
             </Typography>
 
-            <Box component="form" noValidate autoComplete="off" sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
-                <Box>
-                    <Typography sx={sharedStyles.label}>Фамилия имя</Typography>
+            <Box component="form" noValidate autoComplete="off">
+                <Box sx={{mb: 3}}>
+                    <Typography sx={sharedStyles.label}>Фамилия и имя</Typography>
                     <TextField
                         value={formData.fullName}
                         onChange={handleChange('fullName')}
@@ -110,10 +153,20 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
                         fullWidth
                         error={!!errors.fullName}
                         helperText={errors.fullName}
-                        sx={sharedStyles.inputField}
+                        sx={{
+                            height: '40px',
+                            '& .MuiInputBase-root': {
+                                ...sharedStyles.inputField,
+                                borderColor: errors.fullName ? 'red' : 'transparent',
+                                '&:hover': {
+                                    borderColor: errors.fullName ? 'red' : 'inherit',
+                                },
+                            },
+                        }}
                     />
                 </Box>
-                <Box>
+
+                <Box sx={{mb: 3}}>
                     <Typography sx={sharedStyles.label}>Email</Typography>
                     <TextField
                         value={formData.email}
@@ -122,10 +175,20 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
                         fullWidth
                         error={!!errors.email}
                         helperText={errors.email}
-                        sx={sharedStyles.inputField}
+                        sx={{
+                            height: '40px',
+                            '& .MuiInputBase-root': {
+                                ...sharedStyles.inputField,
+                                borderColor: errors.email ? 'red' : 'transparent',
+                                '&:hover': {
+                                    borderColor: errors.email ? 'red' : 'inherit',
+                                },
+                            },
+                        }}
                     />
                 </Box>
-                <Box>
+
+                <Box sx={{mb: 3}}>
                     <Typography sx={sharedStyles.label}>Новый пароль</Typography>
                     <TextField
                         type={showPassword.newPassword ? 'text' : 'password'}
@@ -135,24 +198,36 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
                         fullWidth
                         error={!!errors.newPassword}
                         helperText={errors.newPassword}
-                        sx={sharedStyles.inputField}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
                                         onClick={() =>
-                                            setShowPassword((prev) => ({...prev, newPassword: !prev.newPassword}))
+                                            setShowPassword((prev) => ({
+                                                ...prev,
+                                                newPassword: !prev.newPassword,
+                                            }))
                                         }
-                                        edge="end"
                                     >
                                         {showPassword.newPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
                         }}
+                        sx={{
+                            height: '40px',
+                            '& .MuiInputBase-root': {
+                                ...sharedStyles.inputField,
+                                borderColor: errors.newPassword ? 'red' : 'transparent',
+                                '&:hover': {
+                                    borderColor: errors.newPassword ? 'red' : 'inherit',
+                                },
+                            },
+                        }}
                     />
                 </Box>
-                <Box>
+
+                <Box sx={{mb: '24px'}}>
                     <Typography sx={sharedStyles.label}>Повторить новый пароль</Typography>
                     <TextField
                         type={showPassword.confirmPassword ? 'text' : 'password'}
@@ -162,7 +237,6 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
                         fullWidth
                         error={!!errors.confirmPassword}
                         helperText={errors.confirmPassword}
-                        sx={sharedStyles.inputField}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -170,33 +244,59 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({initialData}: ProfilePa
                                         onClick={() =>
                                             setShowPassword((prev) => ({
                                                 ...prev,
-                                                confirmPassword: !prev.confirmPassword
+                                                confirmPassword: !prev.confirmPassword,
                                             }))
                                         }
-                                        edge="end"
                                     >
                                         {showPassword.confirmPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
                         }}
+                        sx={{
+                            height: '40px',
+                            '& .MuiInputBase-root': {
+                                ...sharedStyles.inputField,
+                                borderColor: errors.confirmPassword ? 'red' : 'transparent',
+                                '&:hover': {
+                                    borderColor: errors.confirmPassword ? 'red' : 'inherit',
+                                },
+                            },
+                        }}
                     />
                 </Box>
 
-                <Box sx={{display: 'flex', justifyContent: 'flex-end', gap: 2, mt: 2}}>
-                    <Button variant="outlined" sx={sharedStyles.buttonCancel} onClick={handleCancel}>
+                <Box sx={{display: 'flex', justifyContent: 'flex', gap: 2}}>
+                    <Button
+                        onClick={handleCancel}
+                        variant="outlined"
+                        sx={{...sharedStyles.buttonCancel, width: '160px', height: '40px'}}
+                    >
                         Отмена
                     </Button>
                     <Button
-                        variant="contained"
-                        sx={sharedStyles.buttonSave}
                         onClick={handleSave}
+                        variant="contained"
+                        sx={{...sharedStyles.buttonSave, width: '160px', height: '40px'}}
                     >
                         Сохранить
                     </Button>
                 </Box>
             </Box>
-        </Container>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+            >
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    severity={snackbar.severity}
+                    sx={{width: '100%'}}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+        </Box>
     );
 };
-

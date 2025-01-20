@@ -1,3 +1,3 @@
-import { ListLayout } from '@/pages/listLayout'
+import {MonochromeLayout} from "@/pages/monochromeLayout";
 
-export default ListLayout
+export default MonochromeLayout

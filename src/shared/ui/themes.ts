@@ -36,4 +36,7 @@ export const baseTheme = createTheme({
   shape: {
     borderRadius: 8,
   },
+  typography: {
+    fontFamily: 'Roboto',
+  }
 })
