@@ -30,7 +30,7 @@ export const updateTerms = async (
 }
 
 export type UpdateTermsRequest = {
-  taskId: number
+  taskId: string
   terms: string[]
 }
 

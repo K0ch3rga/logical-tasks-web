@@ -1,4 +1,6 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import { FileLoader } from './fileLoader'
+import { Terms } from './Terms'
 
 export const LoadDoocumentPage = () => {
   return (
@@ -12,24 +14,9 @@ export const LoadDoocumentPage = () => {
           инструкции.
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
-        <Button variant='contained' color='secondary' sx={{ color: 'white' }}>
-          Загрузка файлов
-        </Button>
+        <FileLoader />
       </Box>
-      <TextField
-        multiline
-        sx={{
-          borderWidth: '1px',
-          '& .MuiInputBase-root': { height: 500, backgroundColor: 'grey.50', color: 'black' },
-        }}
-      />
-      <Button
-        variant='contained'
-        color='secondary'
-        sx={{ width: 160, color: 'white', alignSelf: 'end' }}
-      >
-        Распознать
-      </Button>
+      <Terms />
     </Box>
   )
 }

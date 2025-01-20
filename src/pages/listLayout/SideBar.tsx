@@ -8,7 +8,6 @@ export const SideBar = ({ drawerWidth }: { drawerWidth: number }) => {
   const pages = ['Созданные мной', 'Сохраненные']
   const links = ['/mytasks', '/saved']
   const path = usePathname()
-  console.log(links[0] === path)
 
   return (
     <Drawer

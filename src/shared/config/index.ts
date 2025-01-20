@@ -1,1 +1,1 @@
-export const BACKEND_CONNECTION = process.env.BACKENDCONNECTION
+export const BACKEND_CONNECTION = process.env.BACKEND_CONNECTION

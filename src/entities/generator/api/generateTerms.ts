@@ -29,11 +29,11 @@ export const generateTerms = async (
 }
 
 export type GenerateTermsResult = {
-  taskId: number
+  taskId: string
   terms: string[]
 }
 
 export type GenerateTermsRequest = {
-  documentId: number
+  documentId: string
   termsCount: number
 }

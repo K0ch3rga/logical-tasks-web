@@ -1,3 +1,3 @@
-import { TestPage } from '@/pages/testPage'
+import { TaskPage } from '@/pages/taskPage'
 
-export default TestPage
+export default TaskPage

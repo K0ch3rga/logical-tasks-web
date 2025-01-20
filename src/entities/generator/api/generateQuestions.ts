@@ -30,11 +30,11 @@ export const generateQuestion = async (
 }
 
 export type GenerateQuestionsResult = {
-  taskId: number
+  taskId: string
   questionsAndAnswers: Question[]
 }
 
 export type GenerateQuestionsRequest = {
-  taskId: number
+  taskId: string
   questionsCount: number
 }

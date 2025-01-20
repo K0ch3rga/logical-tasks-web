@@ -30,7 +30,7 @@ export const updateQuestions = async (
 }
 
 export type UpdateQuestionsRequest = {
-  taskId: number
+  taskId: string
   questionsAndAnswers: Question[]
 }
 

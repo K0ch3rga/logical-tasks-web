@@ -8,7 +8,7 @@ import { DocumentInfo, TaskType } from '../Task'
  *
  */
 
-export const getTask = async (taskId: string): Promise<TaskData[]> => {
+export const getTask = async (taskId: string): Promise<GetTaskResult> => {
   const session =
     'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
   try {
@@ -19,12 +19,17 @@ export const getTask = async (taskId: string): Promise<TaskData[]> => {
     })
       .then((r) => (r.ok ? r : Promise.reject(r.status)))
       .then((r) => r.json())
-      .then((r) => r as TaskData[])
+      .then((r) => r as GetTaskResult)
       .catch((e) => Promise.reject(e))
   } catch (e) {
     console.log(e)
     return Promise.reject(600)
   }
+}
+
+type GetTaskResult = {
+  taskInfo: TaskData
+  content: string
 }
 
 export type TaskData = {

@@ -1,6 +1,6 @@
 export type DocumentDTO = {
-  id: number
-  userId: number
+  id: string
+  userId: string
   name: string
   description: string
 }

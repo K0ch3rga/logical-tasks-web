@@ -1,4 +1,5 @@
 import { TaskInfo, TaskType } from '@/entities/task'
+import { DocumentInfo } from '@/entities/task/Task'
 import { Bookmark } from '@mui/icons-material'
 import { Box, Button, IconButton, LinearProgress, List, ListItemButton } from '@mui/material'
 
@@ -16,45 +17,45 @@ export const TaskList = ({ query }: { query: string }) => {
       id: 1,
       name: 'Название',
       description: 'help',
-      author: 'me',
+      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
       taskType: TaskType.test,
       maxScore: 10,
       currentScore: 7,
       createdAt: new Date(),
-      documentInfo: '',
+      documentInfo: {} as DocumentInfo,
     },
     {
       id: 2,
       name: 'Название',
       description: 'help',
-      author: 'me',
+      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
       taskType: TaskType.test,
       maxScore: 10,
       currentScore: 1,
       createdAt: new Date(),
-      documentInfo: '',
+      documentInfo: {} as DocumentInfo,
     },
     {
       id: 3,
       name: 'Название',
       description: 'help',
-      author: 'me',
+      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
       taskType: TaskType.test,
       maxScore: 10,
       currentScore: 9,
       createdAt: new Date(),
-      documentInfo: '',
+      documentInfo: {} as DocumentInfo,
     },
     {
       id: 4,
       name: 'Название',
       description: 'help',
-      author: 'me',
+      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
       taskType: TaskType.test,
       maxScore: 10,
       currentScore: 4,
       createdAt: new Date(),
-      documentInfo: '',
+      documentInfo: {} as DocumentInfo,
     },
   ]
 
