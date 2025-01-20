@@ -11,6 +11,7 @@ import {
 
 export const ListLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const drawerWidth = 243
+  const pages = ['Созданные мной', 'Сохраненные']
 
   return (
     <>
@@ -50,7 +51,8 @@ export const ListLayout = ({ children }: Readonly<{ children: React.ReactNode }>
             }}
           >
             <List sx={{ bg: '#C3C3C366' }}>
-              {[' В процессе', 'Созданные мной', 'Сохраненные'].map((text) => (
+              {pages.map((text) => (
+
                 <ListItem key={text}>
                   <ListItemButton>
                     <ListItemText> {text} </ListItemText>

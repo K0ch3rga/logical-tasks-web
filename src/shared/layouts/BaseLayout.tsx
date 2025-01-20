@@ -36,7 +36,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ru'>
-      <body className={roboto.variable}>
+      <body
+        className={roboto.variable}
+        style={{
+          background:
+            'linear-gradient(to right, var(--mui-palette-primary-light) 50%, transparent 50%)',
+        }}
+      >
         <AppRouterCacheProvider>
           <ThemeProvider theme={baseTheme}>{children} </ThemeProvider>
         </AppRouterCacheProvider>
