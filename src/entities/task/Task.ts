@@ -1,3 +1,5 @@
+import { User } from '@/entities/user'
+
 export type TaskInfo = {
   id: number
   name: string
@@ -9,8 +11,14 @@ export type TaskInfo = {
   createdAt: Date
 }
 
-type UserInfo = string
-type DocumentInfo = string
+type UserInfo = User
+
+export type DocumentInfo = {
+  id: string
+  userId: string
+  name: string
+  description: string
+}
 
 export enum TaskType {
   crossword = 'crossword',
