@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import {Box, TextField, Button, Typography, Snackbar, Alert} from '@mui/material';
 import {sharedStyles} from '@/styles/sharedStyles';
+import {useAuthStore} from "@/entities/store/useAuthStore";
 
 export const AuthPage = () => {
     const [formData, setFormData] = useState({email: '', password: ''});
@@ -18,6 +19,8 @@ export const AuthPage = () => {
         message: '',
         severity: 'success',
     });
+
+    const setToken = useAuthStore((state) => state.setToken);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -52,7 +55,21 @@ export const AuthPage = () => {
         }
 
         try {
-            console.log('Отправка данных', formData);
+            const response = await fetch(`${process.env.BACKEND_CONNECTION}auth/sign-in`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка авторизации');
+            }
+
+            const data = await response.json();
+            setToken(data.token);
+
             setSnackbar({
                 open: true,
                 message: 'Авторизация прошла успешно!',
