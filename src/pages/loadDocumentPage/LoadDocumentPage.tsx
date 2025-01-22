@@ -2,7 +2,12 @@ import { Box, Typography } from '@mui/material'
 import { FileLoader } from './fileLoader'
 import { Terms } from './Terms'
 
-export const LoadDoocumentPage = () => {
+export const LoadDoocumentPage = async (props: {
+  searchParams?: Promise<{
+    documentId?: string
+  }>
+}) => {
+  const documentId = (await props.searchParams)?.documentId
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Typography color='black' variant='h2'>

@@ -1,9 +1,10 @@
 'use client'
+
 import { generateQuestion, updateQuestions } from '@/entities/generator'
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { useEffect, useState } from 'react'
 
-export const TermsEdit = async ({ taskId }: { taskId: string }) => {
+export const TermsEdit = ({ taskId }: { taskId: string }) => {
   const [questions, setQuestions] = useState<string>()
 
   const handleUpdate = () => {

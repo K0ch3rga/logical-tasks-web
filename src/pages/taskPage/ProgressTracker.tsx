@@ -1,3 +1,4 @@
+import { millisecondsToTime } from '@/shared/utils'
 import { Box, TextField, Typography } from '@mui/material'
 import { useState, useEffect } from 'react'
 
@@ -14,19 +15,19 @@ export const ProgressTracker = ({
 
   useEffect(() => {
     const timer = setInterval(() => {
-      console.log(`Time elapsed: ${(Date.now() - time) / 1000} seconds`)
-      setDuration((Date.now() - time) / 1000)
+      // console.log(`Time elapsed: ${(Date.now() - time) / 1000} seconds`)
+      setDuration(Date.now() - time)
     }, 1000)
     return () => clearInterval(timer)
   }, [time])
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
       <Box>
-        <Typography>Прогресс</Typography>
+        <Typography color='primary'>Прогресс</Typography>
         <TextField
           variant='outlined'
           disabled
-          value={(progress / totalQuestions) * 100}
+          value={(progress / totalQuestions) * 100 + ' %'}
           sx={{
             '& .MuiInputBase-root': { backgroundColor: 'grey.50', color: 'black', borderRadius: 0 },
             '& .MuiOutlinedInput-input': { p: 1, width: 80 },
@@ -35,11 +36,11 @@ export const ProgressTracker = ({
         ></TextField>
       </Box>
       <Box>
-        <Typography>Время</Typography>
+        <Typography color='primary'>Время</Typography>
         <TextField
           variant='outlined'
           disabled
-          value={duration}
+          value={millisecondsToTime(duration)}
           sx={{
             '& .MuiInputBase-root': { backgroundColor: 'grey.50', color: 'black', borderRadius: 0 },
             '& .MuiOutlinedInput-input': { p: 1, width: 80 },

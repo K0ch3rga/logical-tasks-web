@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Input, TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -38,7 +38,7 @@ export const SearchBar = () => {
       <Button
         onClick={onSearch}
         variant='contained'
-        sx={{ borderRadius: 1, alignSelf: 'end' }}
+        sx={{ borderRadius: 1, alignSelf: 'end', color: 'white' }}
         color='secondary'
       >
         Поиск

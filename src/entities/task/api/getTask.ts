@@ -10,7 +10,7 @@ import { DocumentInfo, TaskType } from '../Task'
 
 export const getTask = async (taskId: string): Promise<GetTaskResult> => {
   const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
+    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOiI3ZDllNmVmOS01ZDdmLTQyZDAtYTNkZi0yNDFmNjE2MGMzZjMiLCJlbWFpbCI6Iml2YW5vdkBtYWlsLnJ1Iiwic3ViIjoiaXZhbm92QG1haWwucnUiLCJpYXQiOjE3Mzc1MjY3OTMsImV4cCI6MTczNzY3MDc5M30.4wusuWZI0mfwJJfqQjzRxEoO9TV2DmDnOuO9Otmb7j4'
   try {
     return await fetch(BACKEND_CONNECTION + `task/${taskId}`, {
       headers: {

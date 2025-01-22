@@ -7,7 +7,7 @@ import { TaskType } from '../Task'
  *
  */
 
-export const getTaskTypes = async (authorId: number): Promise<AuthorsTask[]> => {
+export const getAuthorsTasks = async (authorId: string): Promise<AuthorsTask[]> => {
   const session =
     'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
   try {

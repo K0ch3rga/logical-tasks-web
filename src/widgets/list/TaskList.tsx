@@ -11,58 +11,11 @@ const resolveColor = (percent: number) => {
   else return 'primary'
 }
 
-export const TaskList = ({ query }: { query: string }) => {
-  const data: TaskInfo[] = [
-    {
-      id: 1,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 7,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-    {
-      id: 2,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 1,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-    {
-      id: 3,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 9,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-    {
-      id: 4,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 4,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-  ]
-
+export const TaskList = ({ tasks, query }: { tasks: TaskInfo[]; query: string }) => {
   return (
     <Box sx={{ color: 'black' }}>
       <List sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
-        {data.map((task) => (
+        {tasks.map((task) => (
           <TaskItem task={task} key={task.id} />
         ))}
       </List>

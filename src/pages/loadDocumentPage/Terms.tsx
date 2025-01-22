@@ -1,7 +1,7 @@
 'use client'
 
 import { generateTerms } from '@/entities/generator'
-import { GenerateTermsResult, updateTerms } from '@/entities/generator/api'
+// import { updateTerms } from '@/entities/generator/api'
 import { Box, Button, TextField } from '@mui/material'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -13,8 +13,9 @@ export const Terms = () => {
   const [taskId, setTaskID] = useState<string>()
 
   const handleUpdate = async () => {
+    console.log('not implemented')
     if (!taskId) return
-    updateTerms({ taskId: taskId, terms: [terms] })
+    // updateTerms({ taskId: taskId, terms: [terms] })
   }
 
   const handleNext = () => {
@@ -23,13 +24,20 @@ export const Terms = () => {
     } else console.log('Нет id')
   }
 
+  useEffect(handleNext, [taskId])
+
   useEffect(() => {
     const id = query?.get('documentId')
     if (!id) {
       console.log('Нет id')
       return
     }
-    generateTerms({ documentId: id, termsCount: 10 })
+    generateTerms({
+      authorId: '6ba4855f-70a9-43a0-b4b6-81c9c6b8deda',
+      taskType: 'test',
+      documentId: id,
+      termsCount: 10,
+    })
       .then((r) => {
         setTerns(r.terms.join('\n'))
         setTaskID(r.taskId)

@@ -1,3 +1,3 @@
-import RootLayout from './BaseLayout'
-export { metadata } from './BaseLayout'
-export { RootLayout }
+export { RootLayout } from './baseLayout'
+
+export { metadata } from './baseLayout'

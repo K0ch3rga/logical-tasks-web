@@ -1,5 +1,3 @@
-'use client'
-
 import { Box, Typography } from '@mui/material'
 import { TaskSettings } from './TaskSettings'
 import { TermsEdit } from './TermsEdit'

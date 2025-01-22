@@ -1,8 +1,8 @@
-import { TaskList } from '@/widgets/list/TaskList'
 import { SearchBar } from '@/widgets/search/ui'
 import { Box, Button } from '@mui/material'
+import { LocalStorageQuestionList } from './LocalStorageProvider'
 
-export const MyTasksPage = async (props: {
+export const SavedTasksPage = async (props: {
   searchParams?: Promise<{
     query?: string
     page?: string
@@ -13,16 +13,6 @@ export const MyTasksPage = async (props: {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end' }}>
-        <Button
-          href='/create'
-          variant='contained'
-          sx={{ borderRadius: 1, alignSelf: 'end', color: 'white' }}
-          color='secondary'
-        >
-          Создать задание
-        </Button>
-      </Box>
       <Box
         sx={{
           display: 'flex',
@@ -39,7 +29,7 @@ export const MyTasksPage = async (props: {
         <Box sx={{ flexGrow: 1 }} />
         <SearchBar />
       </Box>
-      <TaskList query={query} />
+      <LocalStorageQuestionList query={query} />
     </Box>
   )
 }
