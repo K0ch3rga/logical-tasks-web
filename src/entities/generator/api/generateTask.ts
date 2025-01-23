@@ -1,21 +1,19 @@
-import { BACKEND_CONNECTION } from '@/shared/config'
-
 /**
  * Генерация задания
  * @returns id задания {@link GenerateTaskResult}
  */
 
 export const generateTask = async (
-  generateRequest: GenerateTaskRequest
+  generateRequest: GenerateTaskRequest,
+  token: string
 ): Promise<GenerateTaskResult> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
   try {
     return await fetch(
       process.env.NEXT_PUBLIC_BACKEND_CONNECTION + 'task/generator/task/generate',
       {
         headers: {
-          Authorization: 'Bearer ' + session,
+          Authorization: 'Bearer ' + token,
+          'content-type': 'application/json',
         },
         method: 'POST',
         body: JSON.stringify(generateRequest),
@@ -32,9 +30,10 @@ export const generateTask = async (
 }
 
 export type GenerateTaskResult = {
-  taskId: number
+  taskId: string
 }
 
 export type GenerateTaskRequest = {
-  taskId: number
+  taskId: string
+  taskName: string
 }

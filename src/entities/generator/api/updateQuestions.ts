@@ -7,14 +7,13 @@ import { Question } from '../Question'
  */
 
 export const updateQuestions = async (
-  generateRequest: UpdateQuestionsRequest
+  generateRequest: UpdateQuestionsRequest,
+  token: string
 ): Promise<UpdateQuestionsResult> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
   try {
     return await fetch(BACKEND_CONNECTION + 'task/generator/questions/update', {
       headers: {
-        Authorization: 'Bearer ' + session,
+        Authorization: 'Bearer ' + token,
       },
       method: 'PUT',
       body: JSON.stringify(generateRequest),

@@ -2,6 +2,7 @@ import { AppBar, Avatar, Box, Toolbar, Typography } from '@mui/material'
 import logo from '@public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Profile } from './Profile'
 
 export const Header = () => {
   const name = 'Иванов Иван'
@@ -21,10 +22,7 @@ export const Header = () => {
           <Image priority src={logo} alt='logo' />
         </Link>
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', px: 2 }}>
-          <Typography>{name}</Typography>
-          <Avatar sx={{ height: 32, width: 32, bgcolor: 'secondary.main' }} />
-        </Box>
+        <Profile />
       </Toolbar>
     </AppBar>
   )

@@ -1,7 +1,7 @@
 import { User } from '@/entities/user'
 
 export type TaskInfo = {
-  id: number
+  id: string
   name: string
   description: string
   author: UserInfo

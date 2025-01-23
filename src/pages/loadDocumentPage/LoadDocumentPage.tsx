@@ -21,7 +21,7 @@ export const LoadDoocumentPage = async (props: {
         <Box sx={{ flexGrow: 1 }} />
         <FileLoader />
       </Box>
-      <Terms />
+      <Terms documentId={documentId} />
     </Box>
   )
 }

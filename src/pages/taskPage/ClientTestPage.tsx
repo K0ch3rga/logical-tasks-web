@@ -5,11 +5,15 @@ import { useState } from 'react'
 import { ProgressTracker } from './ProgressTracker'
 import { QuestionList } from './QuestionList'
 import { solveTask } from '@/entities/task/api/solveTask'
+import { usePathname } from 'next/navigation'
+import { useAuthStore } from '@/entities/store/useAuthStore'
 
 export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: any }) => {
   const [progress, setProgress] = useState(0)
   const [startTime, setStartTime] = useState(Date.now())
   const [answers, setAnswers] = useState(new Array<string>(questions.length))
+  const taskId = usePathname()?.split('/')?.[1]
+  const token = useAuthStore().token
   const setAnswer = (i: number) => (a: string) => {
     console.log(a)
     answers[i] = a
@@ -21,12 +25,15 @@ export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: an
     const rightAnswers = questions.reduce((count, q, i) => {
       q.rightAnswer == answers[i] && count++
     }, 0)
-    const result = await solveTask({
-      firstName: 'oleg',
-      lastName: 'oleg',
-      score: rightAnswers,
-      taskId: '',
-    })
+    const result = await solveTask(
+      {
+        firstName: 'oleg',
+        lastName: 'oleg',
+        score: rightAnswers,
+        taskId: taskId!,
+      },
+      token!
+    )
     saveInLocalStorage({ taskId: '', score: rightAnswers, questionCount: questions.length })
   }
 

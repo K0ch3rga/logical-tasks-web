@@ -1,5 +1,5 @@
 export type Question = {
-  questionId: number
   question: string
-  answer: string
+  answers: string[]
+  correctAnswerIndex: number
 }

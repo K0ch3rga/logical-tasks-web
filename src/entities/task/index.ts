@@ -1,2 +1,2 @@
 export { type TaskInfo, TaskType } from './Task'
-export { getTaskTypes, getTask, getAuthorsTasks } from './api'
+export { getTaskTypes, getTask, getAuthorsTasks, type AuthorsTask } from './api'

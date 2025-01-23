@@ -1,6 +1,6 @@
-import { BACKEND_CONNECTION } from '@/shared/config'
 import { User } from '@/entities/user'
 import { DocumentInfo, TaskType } from '../Task'
+import { Question } from '@/entities/generator'
 
 /**
  * Получение задания
@@ -9,14 +9,8 @@ import { DocumentInfo, TaskType } from '../Task'
  */
 
 export const getTask = async (taskId: string): Promise<GetTaskResult> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOiI3ZDllNmVmOS01ZDdmLTQyZDAtYTNkZi0yNDFmNjE2MGMzZjMiLCJlbWFpbCI6Iml2YW5vdkBtYWlsLnJ1Iiwic3ViIjoiaXZhbm92QG1haWwucnUiLCJpYXQiOjE3Mzc1MjY3OTMsImV4cCI6MTczNzY3MDc5M30.4wusuWZI0mfwJJfqQjzRxEoO9TV2DmDnOuO9Otmb7j4'
   try {
-    return await fetch(BACKEND_CONNECTION + `task/${taskId}`, {
-      headers: {
-        Authorization: 'Bearer ' + session,
-      },
-    })
+    return await fetch(process.env.NEXT_PUBLIC_BACKEND_CONNECTION + `task/get/${taskId}`)
       .then((r) => (r.ok ? r : Promise.reject(r.status)))
       .then((r) => r.json())
       .then((r) => r as GetTaskResult)
@@ -27,8 +21,9 @@ export const getTask = async (taskId: string): Promise<GetTaskResult> => {
   }
 }
 
-type GetTaskResult = {
+export type GetTaskResult = {
   taskInfo: TaskData
+  question: Question[]
   content: string
 }
 

@@ -4,16 +4,15 @@
  */
 
 export const generateTerms = async (
-  generateRequest: GenerateTermsRequest
+  generateRequest: GenerateTermsRequest,
+  token: string
 ): Promise<GenerateTermsResult> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOiI2YmE0ODU1Zi03MGE5LTQzYTAtYjRiNi04MWM5YzZiOGRlZGEiLCJlbWFpbCI6Iml2YW5vdkBtYWlsLnJ1Iiwic3ViIjoiaXZhbm92QG1haWwucnUiLCJpYXQiOjE3Mzc1MzI2NDIsImV4cCI6MTczNzY3NjY0Mn0.qY5_4L_lTlwD-kh9cSsd60WGCYl_0Z_dtYCEqHBKxdk'
   try {
     return await fetch(
       process.env.NEXT_PUBLIC_BACKEND_CONNECTION + 'task/generator/terms/generate',
       {
         headers: {
-          Authorization: 'Bearer ' + session,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json',
         },
         method: 'POST',

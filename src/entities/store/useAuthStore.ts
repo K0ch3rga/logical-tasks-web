@@ -1,13 +1,21 @@
-import {create} from 'zustand';
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface AuthState {
-    token: string | null;
-    setToken: (token: string) => void;
-    clearToken: () => void;
+  token: string | null
+  setToken: (token: string) => void
+  clearToken: () => void
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-    token: null,
-    setToken: (token) => set({token}),
-    clearToken: () => set({token: null}),
-}));
+export const useAuthStore = create(
+  persist<AuthState>(
+    (set) => ({
+      token: null,
+      setToken: (token) => set({ token }),
+      clearToken: () => set({ token: null }),
+    }),
+    {
+      name: 'jwt_token',
+    }
+  )
+)

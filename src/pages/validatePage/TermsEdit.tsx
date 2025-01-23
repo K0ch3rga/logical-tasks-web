@@ -1,22 +1,32 @@
 'use client'
 
 import { generateQuestion, updateQuestions } from '@/entities/generator'
+import { useAuthStore } from '@/entities/store/useAuthStore'
 import { Box, Typography, Button, TextField } from '@mui/material'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export const TermsEdit = ({ taskId }: { taskId: string }) => {
   const [questions, setQuestions] = useState<string>()
+  const token = useAuthStore().token
+  const query = useSearchParams()
+  const questionCount = query?.get('questionCount')
 
   const handleUpdate = () => {
     // questions as Question[]
-    updateQuestions({ taskId: taskId, questionsAndAnswers: [] })
+    if (token) updateQuestions({ taskId: taskId, questionsAndAnswers: [] }, token)
   }
 
   useEffect(() => {
-    generateQuestion({ questionsCount: 10, taskId: taskId }).then((r) => {
-      setQuestions(r.questionsAndAnswers.join('\n'))
-    })
-  }, [])
+    if (token && questionCount)
+      generateQuestion(
+        { questionsCount: Number.parseInt(questionCount), taskId: taskId },
+        token
+      ).then((r) => {
+        setQuestions(r.questions.map((q) => q.question + ' ' + q.answers.join(' ')).join('\n'))
+      })
+    else console.log('no token')
+  }, [token])
   return (
     <>
       <Box color='primary.main' sx={{ display: 'flex' }}>

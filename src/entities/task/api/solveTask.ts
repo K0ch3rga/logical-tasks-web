@@ -7,13 +7,14 @@ import { TaskType } from '../Task'
  *
  */
 
-export const solveTask = async (body: SolveTaskRequest): Promise<SolveTaskRespond> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
+export const solveTask = async (
+  body: SolveTaskRequest,
+  token: string
+): Promise<SolveTaskRespond> => {
   try {
     return await fetch(process.env.NEXT_PUBLIC_BACKEND_CONNECTION + 'task/taskSolvers/create', {
       headers: {
-        Authorization: 'Bearer ' + session,
+        Authorization: 'Bearer ' + token,
       },
       method: 'POST',
       body: JSON.stringify(body),

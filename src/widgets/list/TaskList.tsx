@@ -1,5 +1,4 @@
-import { TaskInfo, TaskType } from '@/entities/task'
-import { DocumentInfo } from '@/entities/task/Task'
+import { TaskInfo } from '@/entities/task'
 import { Bookmark } from '@mui/icons-material'
 import { Box, Button, IconButton, LinearProgress, List, ListItemButton } from '@mui/material'
 
@@ -16,16 +15,22 @@ export const TaskList = ({ tasks, query }: { tasks: TaskInfo[]; query: string })
     <Box sx={{ color: 'black' }}>
       <List sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
         {tasks.map((task) => (
-          <TaskItem task={task} key={task.id} />
+          <TaskItem task={task} key={task.id} score={0} />
         ))}
       </List>
     </Box>
   )
 }
 
-const TaskItem = ({ task }: { task: TaskInfo }) => {
+const TaskItem = ({ task, score }: { task: TaskInfo; score: number }) => {
+  const path = window.location.origin + '/test/' + task.id
+  console.log(path)
+  const share = (event: any) => {
+    event.preventDefault()
+    saveToClipboard(path)
+  }
   return (
-    <ListItemButton sx={{ borderRadius: 1, boxShadow: 2 }}>
+    <ListItemButton sx={{ borderRadius: 1, boxShadow: 2 }} component='a' href={path}>
       {task.name}
       <Box sx={{ flexGrow: 1, flexBasis: 0 }} />
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}>
@@ -38,15 +43,21 @@ const TaskItem = ({ task }: { task: TaskInfo }) => {
             borderRadius: 4,
             borderColor: 'lightgray',
           }}
-          color={resolveColor((task.currentScore / task.maxScore) * 100)}
-          value={(task.currentScore / task.maxScore) * 100}
+          color={resolveColor((score / task.maxScore) * 100)}
+          value={(score / task.maxScore) * 100}
         />
-        {(task.currentScore / task.maxScore) * 100}%
+        {(score / task.maxScore) * 100}%
       </Box>
       <IconButton color='primary'>
         <Bookmark />
       </IconButton>
-      <Button variant='contained'>Поделиться</Button>
+      <Button variant='contained' onClick={share}>
+        Поделиться
+      </Button>
     </ListItemButton>
   )
+}
+
+const saveToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text)
 }

@@ -11,7 +11,7 @@ export const ValidatePage = async ({ params }: { params: Promise<{ id: string }>
       </Typography>
       <TermsEdit taskId={taskId} />
 
-      <TaskSettings />
+      <TaskSettings taskId={taskId} />
     </Box>
   )
 }
