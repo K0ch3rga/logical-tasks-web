@@ -53,7 +53,7 @@ export const CrosswordPage = ({ data, meta }: { data: CluesInputOriginal; meta: 
 
   const saveInLocalStorage = (data: SavedTask) => {
     const savedData = localStorage.getItem('savedTasks') ?? '[]'
-    const savedTests: any[] = JSON.parse(savedData)
+    const savedTests: SavedTask[] = JSON.parse(savedData)
     savedTests.concat(data)
     localStorage.setItem('savedTasks', JSON.stringify(savedTests.concat(data)))
   }

@@ -28,11 +28,12 @@ const Question = ({ question, index }: { question: any; index: number }) => {
       }}
     >
       <Box sx={{ flexGrow: 1, p: 2 }}>
-        <Typography>{`${index}. ${question.title}`}</Typography>
+        <Typography>{`${index}. ${question.question}`}</Typography>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: 400, py: 2 }}>
-        {question.type == 'choose' && <ChooseAnswer answers={question.answers} />}
-        {question.type == 'type' && <TypeAnswer />}
+        <ChooseAnswer answers={question.answers} />
+        {/* {question.type == 'choose' && <ChooseAnswer answers={question.answers} />} */}
+        {/* {question.type == 'type' && <TypeAnswer />} */}
       </Box>
       <Box
         sx={{
