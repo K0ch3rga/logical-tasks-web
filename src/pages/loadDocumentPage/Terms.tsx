@@ -2,6 +2,7 @@
 
 import { generateTerms } from '@/entities/generator'
 import { useAuthStore } from '@/entities/store/useAuthStore'
+import { TaskType } from '@/entities/task'
 import { JwtUser } from '@/entities/user/User'
 // import { updateTerms } from '@/entities/generator/api'
 import { Box, Button, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material'
@@ -80,10 +81,10 @@ export const Terms = ({ documentId }: { documentId?: string }) => {
             }}
           >
             <Select value={taskType} onChange={(e) => setTaskType(e.target.value)} size='small'>
-              <MenuItem sx={{ color: 'primary.main' }} value={'crossword'}>
+              <MenuItem sx={{ color: 'primary.main' }} value={TaskType.CROSSWORD}>
                 Кроссворд
               </MenuItem>
-              <MenuItem sx={{ color: 'primary.main' }} value={'test'}>
+              <MenuItem sx={{ color: 'primary.main' }} value={TaskType.TEST}>
                 Тест
               </MenuItem>
             </Select>

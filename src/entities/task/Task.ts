@@ -21,8 +21,8 @@ export type DocumentInfo = {
 }
 
 export enum TaskType {
-  crossword = 'crossword',
-  test = 'test',
+  CROSSWORD = 'CROSSWORD',
+  TEST = 'TEST',
 }
 
 export type SavedTask = TaskInfo & { score: number }
