@@ -7,13 +7,17 @@ import { QuestionList } from './QuestionList'
 import { solveTask } from '@/entities/task/api/solveTask'
 import { usePathname } from 'next/navigation'
 import { useAuthStore } from '@/entities/store/useAuthStore'
+import { TaskInfo } from '@/entities/task'
+import { decodeJwt } from 'jose'
+import { JwtUser } from '@/entities/user/User'
 
-export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: any }) => {
+export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: TaskInfo }) => {
   const [progress, setProgress] = useState(0)
   const [startTime, setStartTime] = useState(Date.now())
   const [answers, setAnswers] = useState(new Array<string>(questions.length))
   const taskId = usePathname()?.split('/')?.[1]
   const token = useAuthStore().token
+  const { firstName, lastName } = decodeJwt<JwtUser>(token!)
   const setAnswer = (i: number) => (a: string) => {
     console.log(a)
     answers[i] = a
@@ -23,18 +27,18 @@ export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: an
 
   const handleSubmit = async () => {
     const rightAnswers = questions.reduce((count, q, i) => {
-      q.rightAnswer == answers[i] && count++
+      q.correctAnswer == q.answers.find(answers[i]) && count++
     }, 0)
     const result = await solveTask(
       {
-        firstName: 'oleg',
-        lastName: 'oleg',
+        firstName: firstName,
+        lastName: lastName,
         score: rightAnswers,
         taskId: taskId!,
       },
       token!
     )
-    saveInLocalStorage({ taskId: '', score: rightAnswers, questionCount: questions.length })
+    saveInLocalStorage({ taskId: meta.id, score: rightAnswers, questionCount: questions.length })
   }
 
   const saveInLocalStorage = (data: any) => {

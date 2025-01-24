@@ -1,20 +1,14 @@
-import { BACKEND_CONNECTION } from '@/shared/config'
-import { TaskType } from '../Task'
-
 /**
  * Фиксация решения задачи
  * @returns Массив {@link SolveTaskRespond} с ссылками на иконки
  *
  */
 
-export const solveTask = async (
-  body: SolveTaskRequest,
-  token: string
-): Promise<SolveTaskRespond> => {
+export const solveTask = async (body: SolveTaskRequest): Promise<SolveTaskRespond> => {
   try {
     return await fetch(process.env.NEXT_PUBLIC_BACKEND_CONNECTION + 'task/taskSolvers/create', {
       headers: {
-        Authorization: 'Bearer ' + token,
+        'content-type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify(body),

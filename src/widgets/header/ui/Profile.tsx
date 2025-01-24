@@ -8,10 +8,10 @@ import { decodeJwt } from 'jose'
 export const Profile = () => {
   const token = useAuthStore().token
   if (token) {
-    const { email } = decodeJwt<JwtUser>(token)
+    const { firstName, lastName } = decodeJwt<JwtUser>(token)
     return (
       <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', px: 2 }}>
-        <Typography>{email}</Typography>
+        <Typography>{firstName + ' ' + lastName}</Typography>
         <Avatar sx={{ height: 32, width: 32, bgcolor: 'secondary.main' }} />
       </Box>
     )

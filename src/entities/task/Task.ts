@@ -24,3 +24,5 @@ export enum TaskType {
   crossword = 'crossword',
   test = 'test',
 }
+
+export type SavedTask = TaskInfo & { score: number }

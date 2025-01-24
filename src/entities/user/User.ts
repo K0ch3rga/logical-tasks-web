@@ -6,6 +6,8 @@ export type User = {
 }
 
 export type JwtUser = {
+  firstName: string
+  lastName: string
   role: string
   id: string
   email: string

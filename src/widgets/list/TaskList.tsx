@@ -10,12 +10,20 @@ const resolveColor = (percent: number) => {
   else return 'primary'
 }
 
-export const TaskList = ({ tasks, query }: { tasks: TaskInfo[]; query: string }) => {
+export const TaskList = ({
+  tasks,
+  query,
+  scores,
+}: {
+  tasks: TaskInfo[]
+  query: string
+  scores?: number[]
+}) => {
   return (
     <Box sx={{ color: 'black' }}>
       <List sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
-        {tasks.map((task) => (
-          <TaskItem task={task} key={task.id} score={0} />
+        {tasks.map((task, i) => (
+          <TaskItem task={task} key={task.id} score={scores?.[i] ?? 0} />
         ))}
       </List>
     </Box>
@@ -24,7 +32,6 @@ export const TaskList = ({ tasks, query }: { tasks: TaskInfo[]; query: string })
 
 const TaskItem = ({ task, score }: { task: TaskInfo; score: number }) => {
   const path = window.location.origin + '/test/' + task.id
-  console.log(path)
   const share = (event: any) => {
     event.preventDefault()
     saveToClipboard(path)
@@ -46,7 +53,7 @@ const TaskItem = ({ task, score }: { task: TaskInfo; score: number }) => {
           color={resolveColor((score / task.maxScore) * 100)}
           value={(score / task.maxScore) * 100}
         />
-        {(score / task.maxScore) * 100}%
+        {Math.round((score / task.maxScore) * 100)}%
       </Box>
       <IconButton color='primary'>
         <Bookmark />
