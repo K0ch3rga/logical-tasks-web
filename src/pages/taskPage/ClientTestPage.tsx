@@ -26,7 +26,9 @@ export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: Ta
 
   const handleSubmit = async () => {
     const rightAnswers = questions.reduce((count, q, i) => {
-      return q.correctAnswer == q.answers.findIndex((a: string) => a === answers[i]) && count + 1
+      return q.correctAnswer == q.answers.findIndex((a: string) => a === answers[i])
+        ? count + 1
+        : count
     }, 0)
     console.log(rightAnswers)
     const result = await solveTask({
@@ -55,7 +57,7 @@ export const ClientTestPage = ({ questions, meta }: { questions: any[]; meta: Ta
         <Box sx={{ flexGrow: 1 }} />
         <ProgressTracker progress={progress} totalQuestions={questions.length} time={startTime} />
       </Box>
-      <Box sx={{ overflowY: 'scroll' }}>
+      <Box>
         <QuestionList questions={questions} setAnswer={setAnswer} answers={answers} />
       </Box>
       <Box>

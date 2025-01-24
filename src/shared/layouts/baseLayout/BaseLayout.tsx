@@ -29,7 +29,7 @@ export default function RootLayout({
         className={roboto.variable}
         style={{
           background:
-            'linear-gradient(to right, var(--mui-palette-primary-light) 50%, transparent 50%)',
+            'linear-gradient(to right, var(--mui-palette-primary-light) calc(50% - 600px + 243px), transparent calc(50% - 600px + 243px))',
         }}
       >
         <AppRouterCacheProvider>
