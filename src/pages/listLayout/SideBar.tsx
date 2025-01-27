@@ -5,8 +5,10 @@ import { usePathname } from 'next/navigation'
 import { selectedStyle } from './ui'
 
 export const SideBar = ({ drawerWidth }: { drawerWidth: number }) => {
-  const pages = ['Созданные мной', 'Сохраненные']
-  const links = ['/mytasks', '/saved']
+  const pages: Link[] = [
+    { name: 'Созданные мной', path: '/mytasks' },
+    { name: 'Сохраненные', path: '/saved' },
+  ]
   const path = usePathname()
 
   return (
@@ -33,10 +35,10 @@ export const SideBar = ({ drawerWidth }: { drawerWidth: number }) => {
         }}
       >
         <List sx={{ bg: '#C3C3C366' }}>
-          {pages.map((text, i) => (
-            <ListItem key={text} sx={links[i] == path ? selectedStyle : {}}>
-              <ListItemButton>
-                <ListItemText> {text} </ListItemText>
+          {pages.map((link) => (
+            <ListItem key={link.name} sx={link.path == path ? selectedStyle : {}}>
+              <ListItemButton component='a' href={link.path}>
+                <ListItemText> {link.name} </ListItemText>
               </ListItemButton>
             </ListItem>
           ))}
@@ -44,4 +46,9 @@ export const SideBar = ({ drawerWidth }: { drawerWidth: number }) => {
       </Box>
     </Drawer>
   )
+}
+
+type Link = {
+  name: string
+  path: string
 }

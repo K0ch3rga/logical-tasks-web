@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Box, TextField, Button, Typography, Snackbar, Alert} from '@mui/material';
 import Link from 'next/link';
 import {sharedStyles} from '@/styles/sharedStyles';
+import {useAuthStore} from "@/entities/store/useAuthStore";
 
 export const SignUpPage = () => {
     const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ export const SignUpPage = () => {
         severity: 'success',
     });
 
+    const setToken = useAuthStore((state) => state.setToken); // Достаем метод для сохранения токена из Zustand
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -38,6 +40,9 @@ export const SignUpPage = () => {
 
         if (!formData.fullName.trim()) {
             newErrors.fullName = 'Введите ваше имя.';
+            isValid = false;
+        } else if (formData.fullName.trim().split(' ').length !== 2) {
+            newErrors.fullName = 'Введите фамилию и имя через пробел.';
             isValid = false;
         }
 
@@ -65,14 +70,40 @@ export const SignUpPage = () => {
         e.preventDefault();
         if (validate()) {
             try {
-                console.log('Отправка данных:', formData);
-                setSnackbar({
-                    open: true,
-                    message: 'Регистрация прошла успешно!',
-                    severity: 'success',
+                const [lastName, firstName] = formData.fullName.trim().split(' ');
+
+                const response = await fetch(`${process.env.BACKEND_CONNECTION}auth/sign-up`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        email: formData.email,
+                        password: formData.password,
+                    }),
                 });
-                setFormData({fullName: '', email: '', password: ''});
+
+                if (!response.ok) {
+                    throw new Error('Ошибка регистрации');
+                }
+
+                const data = await response.json();
+
+                if (data.token) {
+                    setToken(data.token); // Сохраняем токен в Zustand
+                    setSnackbar({
+                        open: true,
+                        message: 'Регистрация прошла успешно!',
+                        severity: 'success',
+                    });
+                    setFormData({fullName: '', email: '', password: ''});
+                } else {
+                    throw new Error('Не удалось получить токен');
+                }
             } catch (error) {
+                console.error(error);
                 setSnackbar({
                     open: true,
                     message: 'Ошибка регистрации. Попробуйте снова.',

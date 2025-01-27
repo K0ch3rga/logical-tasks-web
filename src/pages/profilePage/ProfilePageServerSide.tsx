@@ -1,4 +1,3 @@
-'use server';
 import {GetServerSideProps} from "next";
 import {ProfilePage} from "@/pages/profilePage/ProfilePage";
 

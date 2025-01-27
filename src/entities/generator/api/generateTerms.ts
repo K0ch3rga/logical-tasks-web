@@ -1,23 +1,24 @@
-import { BACKEND_CONNECTION } from '@/shared/config'
-
 /**
  * Генерация терминов
  * @returns Список терминов с id задания {@link GenerateTermsResult}
  */
 
 export const generateTerms = async (
-  generateRequest: GenerateTermsRequest
+  generateRequest: GenerateTermsRequest,
+  token: string
 ): Promise<GenerateTermsResult> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
   try {
-    return await fetch(BACKEND_CONNECTION + 'task/generator/terms/generate', {
-      headers: {
-        Authorization: 'Bearer ' + session,
-      },
-      method: 'POST',
-      body: JSON.stringify(generateRequest),
-    })
+    return await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_CONNECTION + 'task/generator/terms/generate',
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(generateRequest),
+      }
+    )
       .then((r) => (r.ok ? r : Promise.reject(r.status)))
       .then((r) => r.json())
       .then((r) => r as GenerateTermsResult)
@@ -34,6 +35,8 @@ export type GenerateTermsResult = {
 }
 
 export type GenerateTermsRequest = {
+  authorId: string
   documentId: string
   termsCount: number
+  taskType: string
 }

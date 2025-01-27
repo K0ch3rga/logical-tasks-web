@@ -1,9 +1,30 @@
 'use client'
 
 import Crossword from '@jaredreisinger/react-crossword'
+import { CluesInputOriginal, Direction } from '@jaredreisinger/react-crossword/dist/types'
 import './ui/crossword.css'
+import { Answer } from './model'
 
-export const ClientCrossword = ({ data }: { data: any }) => {
+export const ClientCrossword = ({
+  data,
+  onWordComplete,
+}: {
+  data: CluesInputOriginal
+  onWordComplete: (a: Answer) => void
+}) => {
+  const handleCompleteWord = (
+    direction: Direction,
+    number: string,
+    correct: boolean,
+    answer: string
+  ) => {
+    onWordComplete({
+      answer: answer,
+      correct: correct,
+      clueNumber: Number.parseInt(number),
+      direction: direction,
+    })
+  }
   return (
     <Crossword
       data={data}
@@ -18,6 +39,7 @@ export const ClientCrossword = ({ data }: { data: any }) => {
       }}
       acrossLabel={'По горизонтали:'}
       downLabel={'По вертикали:'}
+      onAnswerComplete={handleCompleteWord}
     />
   )
 }

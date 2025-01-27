@@ -7,13 +7,11 @@ import { TaskType } from '../Task'
  *
  */
 
-export const getTaskTypes = async (): Promise<getTaskTypeDTO[]> => {
-  const session =
-    'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjEsImVtYWlsIjoiaXZhbm92QG1haWwucnUiLCJzdWIiOiJpdmFub3ZAbWFpbC5ydSIsImlhdCI6MTczNzIwNzY1NSwiZXhwIjoxNzM3MzUxNjU1fQ.BTlLRi80pMvCaTnPu4soQTPtyHoDyev5n0vphJevqPE'
+export const getTaskTypes = async (token: string): Promise<getTaskTypeDTO[]> => {
   try {
     return await fetch(BACKEND_CONNECTION + 'task/types', {
       headers: {
-        Authorization: 'Bearer ' + session,
+        Authorization: 'Bearer ' + token,
       },
     })
       .then((r) => (r.ok ? r : Promise.reject(r.status)))

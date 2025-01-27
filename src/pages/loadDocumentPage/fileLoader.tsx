@@ -1,28 +1,34 @@
 'use client'
 
 import { uploadDocument } from '@/entities/document'
+import { useAuthStore } from '@/entities/store/useAuthStore'
+import { JwtUser } from '@/entities/user/User'
 import { Button } from '@mui/material'
-import { useRouter } from 'next/router'
+import { decodeJwt } from 'jose'
+import { usePathname, useRouter } from 'next/navigation'
 import { ChangeEvent, ChangeEventHandler, useRef } from 'react'
 
 export const FileLoader = () => {
   const fileInput = useRef<HTMLInputElement>(null)
+  const router = useRouter()
+  const path = usePathname()
+  const token = useAuthStore().token
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = async (
     event: ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault()
+    const { id } = decodeJwt<JwtUser>(token!)
 
-    const userId = '7b25276d-b967-449f-a240-09c125f0f902'
     const formData = new FormData()
     formData.append('file', fileInput?.current?.files?.[0]!)
-    formData.append('userId', userId)
+    formData.append('userId', id)
     formData.append('name', fileInput?.current?.files?.[0].name || 'no name')
     formData.append('description', 'no description')
 
-    const result = await uploadDocument(formData)
-    const router = useRouter()
-    router.query.documentId = result.id
-    router.push(router)
+    if (token) {
+      const result = await uploadDocument(formData, token)
+      router.push(path + '?documentId=' + result.id)
+    }
   }
   return (
     <>

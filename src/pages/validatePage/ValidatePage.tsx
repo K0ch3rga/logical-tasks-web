@@ -1,5 +1,3 @@
-'use client'
-
 import { Box, Typography } from '@mui/material'
 import { TaskSettings } from './TaskSettings'
 import { TermsEdit } from './TermsEdit'
@@ -13,7 +11,7 @@ export const ValidatePage = async ({ params }: { params: Promise<{ id: string }>
       </Typography>
       <TermsEdit taskId={taskId} />
 
-      <TaskSettings />
+      <TaskSettings taskId={taskId} />
     </Box>
   )
 }

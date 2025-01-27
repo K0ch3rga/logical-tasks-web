@@ -1,6 +1,7 @@
 import { TaskList } from '@/widgets/list/TaskList'
 import { SearchBar } from '@/widgets/search/ui'
 import { Box, Button } from '@mui/material'
+import { CreatedTasksProvider } from './CreatedTasksProvider'
 
 export const MyTasksPage = async (props: {
   searchParams?: Promise<{
@@ -17,7 +18,7 @@ export const MyTasksPage = async (props: {
         <Button
           href='/create'
           variant='contained'
-          sx={{ borderRadius: 1, alignSelf: 'end' }}
+          sx={{ borderRadius: 1, alignSelf: 'end', color: 'white' }}
           color='secondary'
         >
           Создать задание
@@ -39,7 +40,7 @@ export const MyTasksPage = async (props: {
         <Box sx={{ flexGrow: 1 }} />
         <SearchBar />
       </Box>
-      <TaskList query={query} />
+      <CreatedTasksProvider query={query} />
     </Box>
   )
 }

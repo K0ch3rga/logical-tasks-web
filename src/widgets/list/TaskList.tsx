@@ -1,5 +1,4 @@
-import { TaskInfo, TaskType } from '@/entities/task'
-import { DocumentInfo } from '@/entities/task/Task'
+import { TaskInfo } from '@/entities/task'
 import { Bookmark } from '@mui/icons-material'
 import { Box, Button, IconButton, LinearProgress, List, ListItemButton } from '@mui/material'
 
@@ -11,68 +10,34 @@ const resolveColor = (percent: number) => {
   else return 'primary'
 }
 
-export const TaskList = ({ query }: { query: string }) => {
-  const data: TaskInfo[] = [
-    {
-      id: 1,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 7,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-    {
-      id: 2,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 1,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-    {
-      id: 3,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 9,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-    {
-      id: 4,
-      name: 'Название',
-      description: 'help',
-      author: { firstName: 'me', email: 'aaaa@aaa', lastName: 'a', password: 'a' },
-      taskType: TaskType.test,
-      maxScore: 10,
-      currentScore: 4,
-      createdAt: new Date(),
-      documentInfo: {} as DocumentInfo,
-    },
-  ]
-
+export const TaskList = ({
+  tasks,
+  query,
+  scores,
+}: {
+  tasks: TaskInfo[]
+  query: string
+  scores?: number[]
+}) => {
   return (
     <Box sx={{ color: 'black' }}>
       <List sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
-        {data.map((task) => (
-          <TaskItem task={task} key={task.id} />
+        {tasks.map((task, i) => (
+          <TaskItem task={task} key={task.id} score={scores?.[i] ?? 0} />
         ))}
       </List>
     </Box>
   )
 }
 
-const TaskItem = ({ task }: { task: TaskInfo }) => {
+const TaskItem = ({ task, score }: { task: TaskInfo; score: number }) => {
+  const path = window.location.origin + '/test/' + task.id
+  const share = (event: any) => {
+    event.preventDefault()
+    saveToClipboard(path)
+  }
   return (
-    <ListItemButton sx={{ borderRadius: 1, boxShadow: 2 }}>
+    <ListItemButton sx={{ borderRadius: 1, boxShadow: 2 }} component='a' href={path}>
       {task.name}
       <Box sx={{ flexGrow: 1, flexBasis: 0 }} />
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}>
@@ -85,15 +50,21 @@ const TaskItem = ({ task }: { task: TaskInfo }) => {
             borderRadius: 4,
             borderColor: 'lightgray',
           }}
-          color={resolveColor((task.currentScore / task.maxScore) * 100)}
-          value={(task.currentScore / task.maxScore) * 100}
+          color={resolveColor((score / task.maxScore) * 100)}
+          value={(score / task.maxScore) * 100}
         />
-        {(task.currentScore / task.maxScore) * 100}%
+        {Math.round((score / task.maxScore) * 100)}%
       </Box>
       <IconButton color='primary'>
         <Bookmark />
       </IconButton>
-      <Button variant='contained'>Поделиться</Button>
+      <Button variant='contained' onClick={share}>
+        Поделиться
+      </Button>
     </ListItemButton>
   )
+}
+
+const saveToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text)
 }
